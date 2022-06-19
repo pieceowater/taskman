@@ -13,7 +13,8 @@ app.use(function (req, res, next) {
 });
 
 app.get('/', (req, res) => {
-    return res.status(welcome().status).send(welcome().result)
+    const r = welcome()
+    return res.status(r.status).send(r.result)
 })
 
 
