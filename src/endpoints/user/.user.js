@@ -5,6 +5,7 @@ const {registration} = require("./registration");
 const {login} = require("./login");
 const {logout} = require("./logout");
 const {getDevices} = require("./getDevices");
+const {removeDevices} = require("./removeDevices");
 
 export const user = async function (data) {
     let r = {status: 500, result: "something went wrong"}
@@ -37,7 +38,7 @@ export const user = async function (data) {
             r = await getDevices(data.data)
             break
         case "removeDevices":
-            r = {status: 200, result: "action \""+data.action+"\" is still in progress"}
+            r = await removeDevices(data.data)
             break
         default:
             r = {status: 400, result: "action \""+data.action+"\" is undefined"}
