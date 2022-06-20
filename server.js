@@ -1,6 +1,5 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const {decrypt, decryptToken, encrypt} = require("./src/tools/Crypto")
 
 const {welcome} = require("./src/endpoints/Welcome");
 const {user} = require("./src/endpoints/user/.user");

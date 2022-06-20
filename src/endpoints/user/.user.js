@@ -1,5 +1,8 @@
 const {clientCheck} = require('../../tools/ClientCheck')
 const {fieldCheck} = require('../../tools/FieldCheck')
+
+const {registration} = require("./registration");
+
 export const user = async function (data) {
     let r = {status: 500, result: "something went wrong"}
     try { data = JSON.parse(data) } catch (e) {
@@ -19,7 +22,8 @@ export const user = async function (data) {
 
     switch (data.action){
         case "registration":
-            r = {status: 200, result: "action \""+data.action+"\" is still in progress"}
+            // r = {status: 200, result: "action \""+data.action+"\" is still in progress"}
+            r = await registration(data.data)
             break
         case "login":
             r = {status: 200, result: "action \""+data.action+"\" is still in progress"}
