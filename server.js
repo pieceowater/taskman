@@ -44,6 +44,6 @@ app.post('/profile', async (req, res) => {
 
 
 
-app.listen(8021, () => {
-    console.log('listening on port 8021!')
+app.listen(8020, () => {
+    console.log('listening on port 8020!')
 })
