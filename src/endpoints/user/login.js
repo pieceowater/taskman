@@ -27,7 +27,7 @@ export const login = async function (data) {
             })))
             r = await pool.query(`DELETE FROM sessions WHERE user = '${userData.id}' and agent = '${data.agent}'`).then(async response => {
                 r = await pool.query(`INSERT INTO \`sessions\`( \`user\`, \`token\`, \`agent\`, \`date\`) VALUES ('${userData.id}','${token}','${data.agent}',CURRENT_TIMESTAMP)`).then(async response => {
-                    r = {status: 200, result: {token:token}}
+                    r = {status: 200, result: {token:token, id: userData.id, timestamp: timestamp}}
                     return r
                 })
                 return r
