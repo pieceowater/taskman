@@ -4,6 +4,7 @@ const {fieldCheck} = require('../../tools/FieldCheck')
 const {registration} = require("./registration");
 const {login} = require("./login");
 const {logout} = require("./logout");
+const {getDevices} = require("./getDevices");
 
 export const user = async function (data) {
     let r = {status: 500, result: "something went wrong"}
@@ -30,11 +31,10 @@ export const user = async function (data) {
             r = await login(data.data)
             break
         case "logout":
-            // r = {status: 200, result: "action \""+data.action+"\" is still in progress"}
             r = await logout(data.data)
             break
         case "getDevices":
-            r = {status: 200, result: "action \""+data.action+"\" is still in progress"}
+            r = await getDevices(data.data)
             break
         case "removeDevices":
             r = {status: 200, result: "action \""+data.action+"\" is still in progress"}

@@ -7,6 +7,12 @@ const {fieldCheck, requiredFieldCheck} = require('../../tools/FieldCheck')
 
 export const logout = async function (data){
     let r = {status:400, result: "something went wrong"}
+    if (!fieldCheck(['token', 'agent'], data)) {
+        if (!requiredFieldCheck(['token', 'agent'], data)) {
+            r = {status: 400, result: "check data you sent in \"data\""}
+        }
+        return r
+    }
     try { decrypt(data.token) } catch (e) {
         r = { status: 400, result: "json token is incorrect"}
         return r;
