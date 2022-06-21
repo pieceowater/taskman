@@ -18,6 +18,9 @@ export const team = async function (data) {
     }
 
     switch (data.action){
+        case "searchTeammate":
+            r = {status: 200, result: "action \""+data.action+"\" is still in progress"}
+            break
         case "requestTeammate":
             r = {status: 200, result: "action \""+data.action+"\" is still in progress"}
             break
