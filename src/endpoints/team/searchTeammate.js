@@ -19,7 +19,7 @@ export const searchTeammate = async function (data){
     }
     const userData = JSON.parse(decrypt(data.token))
 
-    r = await pool.query(`SELECT * FROM \`users\` WHERE user_tag LIKE '%${data.usertag}%'`).then(async response => {
+    r = await pool.query(`SELECT * FROM \`users\` WHERE user_tag LIKE '%${data.usertag}%' OR user_name LIKE '${data.usertag}%'`).then(async response => {
         r = []
         response[0].forEach( user_data => {
 

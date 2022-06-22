@@ -2,6 +2,7 @@ const {clientCheck} = require('../../tools/ClientCheck')
 const {fieldCheck} = require('../../tools/FieldCheck')
 
 const {searchTeammate} = require("./searchTeammate");
+const {requestTeammate} = require("./requestTeammate");
 
 export const team = async function (data) {
     let r = {status: 500, result: "something went wrong"}
@@ -25,6 +26,9 @@ export const team = async function (data) {
             r = await searchTeammate(data.data)
             break
         case "requestTeammate":
+            r = await requestTeammate(data.data)
+            break
+        case "allTeammateRequests":
             r = {status: 200, result: "action \""+data.action+"\" is still in progress"}
             break
         case "acceptTeammate":
