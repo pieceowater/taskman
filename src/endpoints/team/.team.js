@@ -1,5 +1,8 @@
 const {clientCheck} = require('../../tools/ClientCheck')
 const {fieldCheck} = require('../../tools/FieldCheck')
+
+const {searchTeammate} = require("./searchTeammate");
+
 export const team = async function (data) {
     let r = {status: 500, result: "something went wrong"}
     try { data = JSON.parse(data) } catch (e) {
@@ -19,7 +22,7 @@ export const team = async function (data) {
 
     switch (data.action){
         case "searchTeammate":
-            r = {status: 200, result: "action \""+data.action+"\" is still in progress"}
+            r = await searchTeammate(data.data)
             break
         case "requestTeammate":
             r = {status: 200, result: "action \""+data.action+"\" is still in progress"}
