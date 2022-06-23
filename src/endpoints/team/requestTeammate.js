@@ -22,7 +22,15 @@ export const requestTeammate = async function (data){
     let usertag = data.usertag+'_'+data.id
 
     r = await pool.query(`SELECT requests FROM \`users\` WHERE user_tag = '${usertag}'`).then(async response => {
-        r = response[0][0].requests
+        try{
+            r = response[0][0].requests
+        }catch (err){
+            return {
+                status: 500,
+                result: "something went wrong"
+            }
+        }
+
         if (r == null){
             r = {list: [
                     {

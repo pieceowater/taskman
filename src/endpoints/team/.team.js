@@ -5,6 +5,7 @@ const {searchTeammate} = require("./searchTeammate");
 const {requestTeammate} = require("./requestTeammate");
 const {allTeammateRequests} = require("./allTeammateRequests");
 const {acceptTeammate} = require("./acceptTeammate");
+const {removeTeammate} = require("./removeTeammate");
 
 export const team = async function (data) {
     let r = {status: 500, result: "something went wrong"}
@@ -37,7 +38,7 @@ export const team = async function (data) {
             r = await acceptTeammate(data.data)
             break
         case "removeTeammate":
-            r = {status: 200, result: "action \""+data.action+"\" is still in progress"}
+            r = await removeTeammate(data.data)
             break
         case "allTeammate":
             r = {status: 200, result: "action \""+data.action+"\" is still in progress"}
