@@ -6,6 +6,7 @@ const {requestTeammate} = require("./requestTeammate");
 const {allTeammateRequests} = require("./allTeammateRequests");
 const {acceptTeammate} = require("./acceptTeammate");
 const {removeTeammate} = require("./removeTeammate");
+const {allTeammate} = require("./allTeammate");
 
 export const team = async function (data) {
     let r = {status: 500, result: "something went wrong"}
@@ -41,7 +42,7 @@ export const team = async function (data) {
             r = await removeTeammate(data.data)
             break
         case "allTeammate":
-            r = {status: 200, result: "action \""+data.action+"\" is still in progress"}
+            r = await allTeammate(data.data)
             break
         default:
             r = {status: 400, result: "action \""+data.action+"\" is undefined"}
