@@ -1,3 +1,5 @@
+import {editProfile} from "./editProfile";
+
 const {clientCheck} = require('../../tools/ClientCheck')
 const {fieldCheck} = require('../../tools/FieldCheck')
 
@@ -24,7 +26,7 @@ export const profile = async function (data) {
             r = await getProfile(data.data)
             break
         case "editProfile":
-            r = {status: 200, result: "action \""+data.action+"\" is still in progress"}
+            r = await editProfile(data.data)
             break
         case "getProfileStat":
             r = {status: 200, result: "action \""+data.action+"\" is still in progress"}
