@@ -2,8 +2,9 @@ import {editProfile} from "./editProfile";
 
 const {clientCheck} = require('../../tools/ClientCheck')
 const {fieldCheck} = require('../../tools/FieldCheck')
-
 const {getProfile} = require("./getProfile");
+const {getProfileStat} = require("./getProfileStat");
+
 export const profile = async function (data) {
     let r = {status: 500, result: "something went wrong"}
     try { data = JSON.parse(data) } catch (e) {
@@ -29,7 +30,7 @@ export const profile = async function (data) {
             r = await editProfile(data.data)
             break
         case "getProfileStat":
-            r = {status: 200, result: "action \""+data.action+"\" is still in progress"}
+            r = await getProfileStat(data.data)
             break
         default:
             r = {status: 400, result: "action \""+data.action+"\" is undefined"}

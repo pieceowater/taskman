@@ -9,8 +9,8 @@ const {fieldCheck, requiredFieldCheck} = require('../../tools/FieldCheck')
 
 export const editProfile = async function (data){
     let r = {status:400, result: "something went wrong"}
-    if (!fieldCheck(['token'], data)) {
-        if (!requiredFieldCheck(['token'], data)) {
+    if (!fieldCheck(['token','name','login','oldPassword','newPassword','avatar'], data)) {
+        if (!requiredFieldCheck(['token','name','login','oldPassword','newPassword','avatar'], data)) {
             r = {status: 400, result: "check data you sent in \"data\""}
         }
         return r
