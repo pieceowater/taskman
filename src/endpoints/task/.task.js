@@ -1,5 +1,8 @@
 const {clientCheck} = require('../../tools/ClientCheck')
 const {fieldCheck} = require('../../tools/FieldCheck')
+
+const {getTasksList} = require("./getTasksList");
+
 export const task = async function (data) {
     let r = {status: 500, result: "something went wrong"}
     try { data = JSON.parse(data) } catch (e) {
@@ -19,7 +22,7 @@ export const task = async function (data) {
 
     switch (data.action){
         case "getTasksList":
-            r = {status: 200, result: "action \""+data.action+"\" is still in progress"}
+            r = await getTasksList(data.data)
             break
         case "createTask":
             r = {status: 200, result: "action \""+data.action+"\" is still in progress"}
