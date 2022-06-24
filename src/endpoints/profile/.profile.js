@@ -1,5 +1,7 @@
 const {clientCheck} = require('../../tools/ClientCheck')
 const {fieldCheck} = require('../../tools/FieldCheck')
+
+const {getProfile} = require("./getProfile");
 export const profile = async function (data) {
     let r = {status: 500, result: "something went wrong"}
     try { data = JSON.parse(data) } catch (e) {
@@ -19,7 +21,7 @@ export const profile = async function (data) {
 
     switch (data.action){
         case "getProfile":
-            r = {status: 200, result: "action \""+data.action+"\" is still in progress"}
+            r = await getProfile(data.data)
             break
         case "editProfile":
             r = {status: 200, result: "action \""+data.action+"\" is still in progress"}
