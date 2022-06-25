@@ -39,10 +39,14 @@ export const getTasksList = async function (data){
         if (response.length>0) {
             if (filter!=="all"){
                 for (const task of response){
+                    let isOK = true
                     for (const taskUser of task.users.executors){
-                        if(taskUser.complete === filter){
-                            taskList.tasks.push(task)
+                        if(taskUser.complete !== filter){
+                            isOK = false
                         }
+                    }
+                    if (isOK){
+                        taskList.tasks.push(task)
                     }
                 }
             }else {
