@@ -6,9 +6,10 @@ import {decrypt} from "../../tools/Crypto";
 const {fieldCheck, requiredFieldCheck} = require('../../tools/FieldCheck')
 
 export const getTasksList = async function (data){
+
     let r = {status:400, result: "something went wrong"}
-    if (!fieldCheck(['token', 'sort', 'filter'], data)) {
-        if (!requiredFieldCheck(['token', 'sort', 'filter'], data)) {
+    if (!fieldCheck(['token', 'sort', 'filter', 'subtaskParent'], data)) {
+        if (!requiredFieldCheck(['token', 'sort', 'filter', 'subtaskParent'], data)) {
             r = {status: 400, result: "check data you sent in \"data\""}
         }
         return r
@@ -22,6 +23,9 @@ export const getTasksList = async function (data){
     let sort = (data.sort === "asc")||(data.sort === "desc")
     sort = sort ? "GROUP BY id "+data.sort.toUpperCase() : ""
 
+
+    let parent = (typeof parseInt(data.subtaskParent))==="number" ? data.subtaskParent : false
+    parent = (!isNaN(parent))?" AND parent = "+parent:" AND parent = 0"
     if(((data.filter.inprogress===undefined)||(data.filter.completed===undefined))||((typeof data.filter.inprogress != "boolean")||(typeof data.filter.completed != "boolean"))){
         return {status: 400, result: "filter is incorrect"}
     }
@@ -32,8 +36,7 @@ export const getTasksList = async function (data){
     }else {
         filter = "all"
     }
-
-    const tasksList = await pool.query(`SELECT * FROM \`tasks\` WHERE users LIKE '%"${userData.tag}"%' AND parent = 0 ${sort}`).then(async response => {
+    const tasksList = await pool.query(`SELECT * FROM \`tasks\` WHERE users LIKE '%"${userData.tag}"%' ${parent} ${sort}`).then(async response => {
         response = response[0]
         const taskList = {tasks:[]}
         if (response.length>0) {
