@@ -27,6 +27,7 @@ export const searchTeammate = async function (data){
                 id: user_data.id,
                 name: user_data.user_name,
                 tag: user_data.user_tag.substr(0, user_data.user_tag.indexOf(user_data.user_tag.split('_')[user_data.user_tag.split('_').length-1])-1),
+                team: user_data.team || {"list": []},
                 avatar: user_data.user_avatar
             }
              r.push(user)
