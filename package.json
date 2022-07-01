@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js --exec babel-node --presets babel-preset-env",
+    "start": "nodemon index.js --exec babel-node --presets babel-preset-env",
     "lint": "eslint src/js"
   },
   "keywords": [],
@@ -16,7 +16,8 @@
     "crypto": "^1.0.1",
     "express": "^4.18.1",
     "mysql2": "^2.3.3",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "vercel": "^25.2.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
