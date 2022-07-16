@@ -6,10 +6,10 @@ const {fieldCheck, requiredFieldCheck} = require('../../tools/FieldCheck')
 const {decrypt, decryptToken, encrypt} = require("../../tools/Crypto")
 
 export const login = async function (data) {
-    let r = {status: 400, result: "something went wrong"}
+    let r = {status: 400, result: {"message":"something went wrong"}}
     if (!fieldCheck(['login', 'password', 'agent'], data)) {
         if (!requiredFieldCheck(['login', 'password', 'agent'], data)) {
-            r = {status: 400, result: "check data you sent in \"data\""}
+            r = {status: 400, result: {"message":"check data you sent in \"data\""}}
         }
         return r
     }
@@ -33,7 +33,7 @@ export const login = async function (data) {
                 return r
             })
         }else{
-            r = {status: 400, result: "wrong password"}
+            r = {status: 400, result: {"message":"wrong password"}}
         }
         return r
     })

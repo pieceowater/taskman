@@ -6,15 +6,15 @@ import {decrypt} from "../../tools/Crypto";
 const {fieldCheck, requiredFieldCheck} = require('../../tools/FieldCheck')
 
 export const requestTeammate = async function (data){
-    let r = {status:400, result: "something went wrong"}
+    let r = {status:400, result: {"message":"something went wrong"}}
     if (!fieldCheck(['token', 'usertag', 'id'], data)) {
         if (!requiredFieldCheck(['token', 'usertag', 'id'], data)) {
-            r = {status: 400, result: "check data you sent in \"data\""}
+            r = {status: 400, result: {"message":"check data you sent in \"data\""}}
         }
         return r
     }
     try { decrypt(data.token) } catch (e) {
-        r = { status: 400, result: "json token is incorrect"}
+        r = { status: 400, result: {"message":"json token is incorrect"}}
         return r;
     }
     const userData = JSON.parse(decrypt(data.token))
@@ -27,7 +27,7 @@ export const requestTeammate = async function (data){
         }catch (err){
             return {
                 status: 500,
-                result: "something went wrong"
+                result: {"message":"something went wrong"}
             }
         }
 
@@ -49,7 +49,7 @@ export const requestTeammate = async function (data){
         r = await pool.query(`UPDATE \`users\` SET \`requests\`='${JSON.stringify(r)}' WHERE  user_tag = '${usertag}'`).then(async response => {
             return {
                 status:200,
-                result: "successful teammate request"
+                result: {"message":"successful teammate request"}
             }
         })
         return r

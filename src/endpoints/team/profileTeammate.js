@@ -6,15 +6,15 @@ import {decrypt} from "../../tools/Crypto";
 const {fieldCheck, requiredFieldCheck} = require('../../tools/FieldCheck')
 
 export const profileTeammate = async function (data){
-    let r = {status:400, result: "something went wrong"}
+    let r = {status:400, result: {"message":"something went wrong"}}
     if (!fieldCheck(['token','user'], data)) {
         if (!requiredFieldCheck(['token','user'], data)) {
-            r = {status: 400, result: "check data you sent in \"data\""}
+            r = {status: 400, result: {"message":"check data you sent in \"data\""}}
         }
         return r
     }
     try { decrypt(data.token) } catch (e) {
-        r = { status: 400, result: "json token is incorrect"}
+        r = { status: 400, result: {"message":"json token is incorrect"}}
         return r;
     }
     const userData = JSON.parse(decrypt(data.token))

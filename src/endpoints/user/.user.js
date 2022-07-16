@@ -10,17 +10,17 @@ const {removeDevices} = require("./removeDevices");
 export const user = async function (data) {
     let r = {status: 500, result: "something went wrong"}
     try { data = JSON.parse(data) } catch (e) {
-        r = { status: 400, result: "json is incorrect"}
+        r = { status: 400, result: {"message":"json is incorrect"}}
         return r;
     }
 
     if (!fieldCheck(['auth', 'action', 'data'], data)) {
-        r = { status: 400, result: "check data you sent"}
+        r = { status: 400, result: {"message":"check data you sent"}}
         return r
     }
 
     if (!await clientCheck(data.auth)){
-        r = { status: 400, result: "client auth failed"}
+        r = { status: 400, result:{"message":"client auth failed"}}
         return r
     }
 
@@ -41,7 +41,7 @@ export const user = async function (data) {
             r = await removeDevices(data.data)
             break
         default:
-            r = {status: 400, result: "action \""+data.action+"\" is undefined"}
+            r = {status: 400, result: {"message":"action \""+data.action+"\" is undefined"}}
             break
     }
 

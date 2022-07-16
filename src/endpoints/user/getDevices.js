@@ -6,10 +6,10 @@ import {decrypt} from "../../tools/Crypto";
 const {fieldCheck, requiredFieldCheck} = require('../../tools/FieldCheck')
 
 export const getDevices = async function (data){
-    let r = {status:400, result: "something went wrong"}
+    let r = {status:400, result: {"message":"something went wrong"}}
     if (!fieldCheck(['token', 'agent'], data)) {
         if (!requiredFieldCheck(['token', 'agent'], data)) {
-            r = {status: 400, result: "check data you sent in \"data\""}
+            r = {status: 400, result: {"message":"check data you sent in \"data\""}}
         }
         return r
     }
@@ -23,7 +23,7 @@ export const getDevices = async function (data){
     })
 
     if (r.result.length === 0){
-        r.result = {response: "only active device (this)"}
+        r.result = {response: {"message":"only active device (this)"}}
     }
     return r
 }

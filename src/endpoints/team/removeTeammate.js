@@ -6,17 +6,17 @@ import {decrypt} from "../../tools/Crypto";
 const {fieldCheck, requiredFieldCheck} = require('../../tools/FieldCheck')
 
 export const removeTeammate = async function (data) {
-    let r = {status: 400, result: "something went wrong"}
+    let r = {status: 400, result: {"message":"something went wrong"}}
     if (!fieldCheck(['token', 'usertag'], data)) {
         if (!requiredFieldCheck(['token', 'usertag'], data)) {
-            r = {status: 400, result: "check data you sent in \"data\""}
+            r = {status: 400, result: {"message":"check data you sent in \"data\""}}
         }
         return r
     }
     try {
         decrypt(data.token)
     } catch (e) {
-        r = {status: 400, result: "json token is incorrect"}
+        r = {status: 400, result: {"message":"json token is incorrect"}}
         return r;
     }
     const userData = JSON.parse(decrypt(data.token))
@@ -34,7 +34,7 @@ export const removeTeammate = async function (data) {
         r = await pool.query(`UPDATE \`users\` SET \`team\`='${JSON.stringify(r)}' WHERE  id = '${userData.id}'`).then(async response => {
             return {
                 status:200,
-                result: "successful remove teammate"
+                result: {"message":"successful remove teammate"}
             }
         })
         return r
